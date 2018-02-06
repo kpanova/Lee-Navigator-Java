@@ -2,7 +2,6 @@ package com.test.navigator;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.stream.IntStream;
 
 public class Program {
     public static void main(String[] args) throws IOException {
@@ -26,6 +25,12 @@ public class Program {
                 s.append(map[i][j]).append(" ");
             }
             System.out.println(s);
+        }
+    }
+    static void RunSearch(char[][] Map){
+        if(searchErrors(Map)){
+            Map map = new Map(Map);
+            Write(map.GetWay(),"Ваш кратчайшмй маршрут отмечен символами '+' :");
         }
     }
     private static char[][] getMap() throws IOException { //Получение карты из консоли
@@ -55,6 +60,27 @@ public class Program {
         }
         Write(map, "Ваша карта:");
         return map;
+    }
+
+    private static boolean searchErrors(char[][] map){
+        for (int i = 0; i < map.length; i++){
+            String str;
+            String badSigns;
+            do{
+                str = new String(map[i]);
+                badSigns = str.replaceAll("[@X#.]", "");
+                if(badSigns.length()>0){
+                    System.out.println("Ваша строка " + (i+1) +  " содержала недопустимые символы: '" + badSigns + "'. Повторите ввод (допустимые символы: '#' - стена, '.' - дорога, '@' - старт, 'X' - финиш).");
+                    return false;
+                }
+                else if(str.length()<map[0].length || str.length()>map[0].length){
+                    System.out.println("Вы ввели недопустимое количество символов в строке" + (i+1) + ", повторите ввод.");
+                    return false;
+                }
+            } while (str.length() < map[0].length || str.length() > map[0].length);
+        }
+        System.out.println("Карта верна. Происходят вычисления...");
+        return true;
     }
 }
 

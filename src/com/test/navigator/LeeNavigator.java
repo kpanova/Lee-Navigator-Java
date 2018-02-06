@@ -1,6 +1,6 @@
 package com.test.navigator;
-import java.lang.reflect.Array;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LeeNavigator implements Navigator
 {
@@ -19,7 +19,7 @@ public class LeeNavigator implements Navigator
     private int rows;
     private int columns;
 
-    public char[][] searchRoute(char[][] map)
+    public char[][] searchRoute(char[][] map) // Поиск маршрута алгоритмом Ли
     {
         WeightMap = ResizeWeightMap(map);
         int weight = 0;
@@ -58,7 +58,7 @@ public class LeeNavigator implements Navigator
         return FindBacktrace(map);
     }
 
-    private char[][] FindBacktrace(char[][] map)
+    private char[][] FindBacktrace(char[][] map) // Поиск обратного пути
     {
         int weight = 0;
         for (int i = list.size() - 1; i >= 0; i--)
@@ -83,7 +83,7 @@ public class LeeNavigator implements Navigator
         return map;
     }
 
-    private int[][] ResizeWeightMap(char[][] map)
+    private int[][] ResizeWeightMap(char[][] map) // Изменение размера матрицы весов
     {
         int[][] newMap;
         if (map.length > WeightMap.length || map[0].length > WeightMap[0].length)
@@ -101,7 +101,7 @@ public class LeeNavigator implements Navigator
         return WeightMap;
     }
 
-    private int GetWeight(int x, int y, int weight, char[][] map)
+    private int GetWeight(int x, int y, int weight, char[][] map) // Установка веса в матрицу весов
     {
         int newWeight;
         newWeight = weight + 1;
@@ -130,7 +130,7 @@ public class LeeNavigator implements Navigator
         return newWeight;
     }
 
-    private int GetPoint(int x, int y, int newWeight, char[][] map)
+    private int GetPoint(int x, int y, int newWeight, char[][] map) // Установка веса соседней точки
     {
         if (IsExist(y, x, map) && GetWeight(y, x) == 0 && !IsFinish(y, x, map))
         {
@@ -156,23 +156,23 @@ public class LeeNavigator implements Navigator
     }
 
 
-    private boolean IsWall(int i, int j, char[][] map)
+    private boolean IsWall(int i, int j, char[][] map) // Проверка стена ли это
     {
         return map[i][j] == '#';
     }
-    private boolean IsExist(int i, int j, char[][] map)
+    private boolean IsExist(int i, int j, char[][] map) // Проверка на существование в массиве элемента
     {
         return i < map.length && j < map[0].length && i >= 0 && j >= 0;
     }
-    private boolean IsFinish(int i, int j, char[][] map)
+    private boolean IsFinish(int i, int j, char[][] map) // Проверка финиш ли это
     {
         return map[i][j] == 'X';
     }
-    private boolean IsStart(int i, int j, char[][] map)
+    private boolean IsStart(int i, int j, char[][] map) // Проверка старт ли это
     {
         return map[i][j] == '@';
     }
-    private int GetWeight(int i, int j)
+    private int GetWeight(int i, int j) // Получение веса из матрицы весов
     {
         return WeightMap[i][j];
     }

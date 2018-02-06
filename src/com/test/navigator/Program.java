@@ -12,7 +12,6 @@ public class Program {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         br.readLine();
     }
-
     private static void Write(char[][] map, String string) //Вывод готовой карты в консоль
     {
         System.out.println(string);
@@ -35,10 +34,16 @@ public class Program {
     }
     private static char[][] getMap() throws IOException { //Получение карты из консоли
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        System.out.println("Введите количество строк на карте M>=1:");
-        int rows = Integer.parseInt(reader.readLine());
-        System.out.println("Введите количество столбцов на карте Т<=10000:");
-        int columns = Integer.parseInt(reader.readLine());
+        int columns;
+        int rows;
+        do {
+            System.out.println("Введите количество строк на карте M>=1:");
+            rows = Integer.parseInt(reader.readLine());
+        }while (rows<1);
+        do {
+            System.out.println("Введите количество столбцов на карте N<=10000:");
+            columns = Integer.parseInt(reader.readLine());
+        }while (columns >10000);
         char[][] map = new char[rows][columns];
         for (int i = 0; i < rows; i++){
             String str;

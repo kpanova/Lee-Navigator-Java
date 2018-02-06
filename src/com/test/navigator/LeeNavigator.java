@@ -58,24 +58,6 @@ public class LeeNavigator implements Navigator
         return FindBacktrace(map);
     }
 
-    private int[][] ResizeWeightMap(char[][] map)
-    {
-        int[][] newMap;
-        if (map.length > WeightMap.length || map[0].length > WeightMap[0].length)
-        {
-            newMap = new int[map.length][map[0].length];
-            for (int i = 0; i < newMap.length; i++)
-            {
-                for (int j = 0; j < newMap[0].length; j++)
-                {
-                    newMap[i][j] = 0;
-                }
-            }
-            return newMap;
-        }
-        return WeightMap;
-    }
-
     private char[][] FindBacktrace(char[][] map)
     {
         int weight = 0;
@@ -100,6 +82,25 @@ public class LeeNavigator implements Navigator
         }
         return map;
     }
+
+    private int[][] ResizeWeightMap(char[][] map)
+    {
+        int[][] newMap;
+        if (map.length > WeightMap.length || map[0].length > WeightMap[0].length)
+        {
+            newMap = new int[map.length][map[0].length];
+            for (int i = 0; i < newMap.length; i++)
+            {
+                for (int j = 0; j < newMap[0].length; j++)
+                {
+                    newMap[i][j] = 0;
+                }
+            }
+            return newMap;
+        }
+        return WeightMap;
+    }
+
     private int GetWeight(int x, int y, int weight, char[][] map)
     {
         int newWeight;

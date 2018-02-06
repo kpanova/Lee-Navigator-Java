@@ -10,4 +10,6 @@ class Map {
     char[][] GetWay(){
         return navigator.searchRoute(map);
     }
+
+
 }

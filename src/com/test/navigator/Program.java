@@ -6,15 +6,17 @@ import java.util.stream.IntStream;
 
 public class Program {
     public static void main(String[] args) throws IOException {
+        System.out.println("Ввод карты (допустимые символы: '#' - стена, '.' - дорога, '@' - старт, 'X' - финиш):");
         Map map = new Map(getMap());
-        Write(map.GetWay());
+        System.out.println("Произвожу вычисления...");
+        Write(map.GetWay(),"Ваш кратчайшмй маршрут отмечен символами '+' :");
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         br.readLine();
     }
 
-    private static void Write(char[][] map)
+    private static void Write(char[][] map, String string) //Вывод готовой карты в консоль
     {
-        System.out.println("");
+        System.out.println(string);
         StringBuilder s;
         for (int i = 0; i <= map.length - 1; i++)
         {
@@ -26,7 +28,7 @@ public class Program {
             System.out.println(s);
         }
     }
-    private static char[][] getMap() throws IOException {
+    private static char[][] getMap() throws IOException { //Получение карты из консоли
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Введите количество строк на карте M>=1:");
         int rows = Integer.parseInt(reader.readLine());
@@ -37,15 +39,21 @@ public class Program {
             String str;
             String badSigns;
             do{
-            System.out.println("Введите " + columns + " символов " + (i+1) + "-й строки карты последовательно:");
-            str = reader.readLine();
-            badSigns = str.replaceAll("#.@X", "");
-            }
-            while (badSigns.length()>0 || str.length()<columns);
+                System.out.println("Введите " + columns + " символов " + (i+1) + "-й строки карты последовательно и нажмите Enter:");
+                str = reader.readLine();
+                badSigns = str.replaceAll("[@X#.]", "");
+                if(badSigns.length()>0){
+                    System.out.println("Ваша строка содержала недопустимые символы: '" + badSigns + "'. Повторите ввод (допустимые символы: '#' - стена, '.' - дорога, '@' - старт, 'X' - финиш)");
+                }
+                else if(str.length()<columns || str.length()>columns){
+                    System.out.println("Вы ввели недопустимое количество символов, повторите ввод.");
+                }
+            } while (badSigns.length()>0 || str.length()<columns || str.length()>columns);
+
             char[] string = str.toCharArray();
             System.arraycopy(string, 0, map[i], 0, columns);
         }
-        Write(map);
+        Write(map, "Ваша карта:");
         return map;
     }
 }

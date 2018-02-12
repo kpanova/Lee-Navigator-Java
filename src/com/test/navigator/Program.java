@@ -14,17 +14,19 @@ public class Program {
     }
     private static void Write(char[][] map, String string) //Вывод готовой карты в консоль
     {
-        System.out.println(string);
-        StringBuilder s;
-        for (int i = 0; i <= map.length - 1; i++)
-        {
-            s = new StringBuilder();
-            for (int j = 0; j <= map[0].length - 1; j++)
-            {
-                s.append(map[i][j]).append(" ");
+        if(map!=null) {
+            System.out.println(string);
+            StringBuilder s;
+            for (int i = 0; i <= map.length - 1; i++) {
+                s = new StringBuilder();
+                for (int j = 0; j <= map[0].length - 1; j++) {
+                    s.append(map[i][j]).append(" ");
+                }
+                System.out.println(s);
             }
-            System.out.println(s);
         }
+        else System.out.println("null");
+
     }
     static void RunSearch(char[][] Map){
         if(searchErrors(Map)){

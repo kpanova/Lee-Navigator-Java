@@ -52,7 +52,7 @@ public class LeeNavigator implements Navigator
             }
             catch (Exception e)
             {
-                break;
+                return null;
             }
         }
         return FindBacktrace(map);
